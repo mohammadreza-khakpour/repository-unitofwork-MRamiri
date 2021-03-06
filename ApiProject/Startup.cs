@@ -1,3 +1,5 @@
+using ApiProject.Controllers;
+using ApiProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +27,9 @@ namespace ApiProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ApiDbContext>();
+            services.AddSingleton<GoodCategoriesRepository>();
+            services.AddSingleton<UnitOfWork>();
             services.AddControllers();
         }
 

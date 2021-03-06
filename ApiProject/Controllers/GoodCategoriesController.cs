@@ -15,27 +15,24 @@ namespace ApiProject.Controllers
     public class GoodCategoriesController : Controller
     {
         private readonly ApiDbContext _context;
+        private GoodCategoriesRepository _goodCategoriesRepository;
+        private UnitOfWork _unitOfWork;
 
-        public GoodCategoriesController()
+        public GoodCategoriesController(GoodCategoriesRepository goodCategoriesRepository, UnitOfWork unitOfWork)
         {
             _context = new ApiDbContext();
+            _goodCategoriesRepository = goodCategoriesRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public void Add([Required][FromBody] string Title)
         {
-            if (_context.GoodCategories.Any(_ => _.Title == Title))
-            {
-                throw new GoodCategoryTitleCantBeDuplicatedExcption();
-            }
-            var goodCategory = new GoodCategory
-            {
-                Title = Title
-            };
+            _goodCategoriesRepository.CheckForDuplicatedTitle(Title);
+            
+            _goodCategoriesRepository.Add(Title);
 
-            _context.GoodCategories.Add(goodCategory);
-
-            _context.SaveChanges();
+            _unitOfWork.Complete();
         }
 
         [HttpGet]
