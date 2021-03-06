@@ -15,12 +15,12 @@ namespace ApiProject.Controllers
     public class GoodCategoriesController : Controller
     {
         private readonly ApiDbContext _context;
-        private GoodCategoriesRepository _goodCategoriesRepository;
-        private UnitOfWork _unitOfWork;
+        private IGoodCategoriesRepository _goodCategoriesRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public GoodCategoriesController(GoodCategoriesRepository goodCategoriesRepository, UnitOfWork unitOfWork)
+        public GoodCategoriesController(ApiDbContext context, IGoodCategoriesRepository goodCategoriesRepository, IUnitOfWork unitOfWork)
         {
-            _context = new ApiDbContext();
+            _context = context;
             _goodCategoriesRepository = goodCategoriesRepository;
             _unitOfWork = unitOfWork;
         }

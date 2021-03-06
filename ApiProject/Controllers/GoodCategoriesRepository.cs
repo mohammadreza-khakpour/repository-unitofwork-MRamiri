@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ApiProject.Controllers
 {
-    public class GoodCategoriesRepository
+    public class GoodCategoriesRepository : IGoodCategoriesRepository
     {
         private ApiDbContext _context;
         public GoodCategoriesRepository(ApiDbContext context)

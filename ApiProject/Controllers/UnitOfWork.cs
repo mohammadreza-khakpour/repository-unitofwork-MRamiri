@@ -3,7 +3,7 @@ using System;
 
 namespace ApiProject.Controllers
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private ApiDbContext _context;
         public UnitOfWork(ApiDbContext context)

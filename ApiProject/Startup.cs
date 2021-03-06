@@ -28,8 +28,8 @@ namespace ApiProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ApiDbContext>();
-            services.AddSingleton<GoodCategoriesRepository>();
-            services.AddSingleton<UnitOfWork>();
+            services.AddSingleton<IGoodCategoriesRepository, GoodCategoriesRepository>();
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
         }
 
