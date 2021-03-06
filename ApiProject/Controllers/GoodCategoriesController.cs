@@ -38,22 +38,18 @@ namespace ApiProject.Controllers
         [HttpGet]
         public IList<GetGoodCategoryDto> GetAll()
         {
-            return _context.GoodCategories.Select
-                  (_ => new GetGoodCategoryDto
-                  {
-                      Id = _.Id,
-                      Title = _.Title
-                  }).ToList();
+            return _goodCategoriesRepository.GetAll();
+            
         }
 
         [HttpPut("{id}")]
         public void Update(int id, UpdateGoodCategoryDto dto)
         {
-            var category = _context.GoodCategories.Find(id);
+            GoodCategory category = _goodCategoriesRepository.Find(id);
 
-            category.Title = dto.Title;
+            _goodCategoriesRepository.Update(category, dto.Title);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
         }
 
         [HttpDelete("{id}")]
