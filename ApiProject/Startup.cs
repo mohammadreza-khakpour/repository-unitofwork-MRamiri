@@ -27,6 +27,7 @@ namespace ApiProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IApiDbContext, ApiDbContext>();
             services.AddSingleton<ApiDbContext>();
             services.AddSingleton<IGoodCategoriesRepository, GoodCategoriesRepository>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();

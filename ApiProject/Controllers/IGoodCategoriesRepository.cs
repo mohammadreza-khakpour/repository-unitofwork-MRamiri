@@ -11,5 +11,6 @@ namespace ApiProject.Controllers
         IList<GetGoodCategoryDto> GetAll();
         GoodCategory Find(int id);
         void Update(GoodCategory category, string Title);
+        void Delete(GoodCategory category);
     }
 }

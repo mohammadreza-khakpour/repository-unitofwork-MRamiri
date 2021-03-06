@@ -14,11 +14,11 @@ namespace ApiProject.Controllers
     [Route("api/good-categories")]
     public class GoodCategoriesController : Controller
     {
-        private readonly ApiDbContext _context;
+        private readonly IApiDbContext _context;
         private IGoodCategoriesRepository _goodCategoriesRepository;
         private IUnitOfWork _unitOfWork;
 
-        public GoodCategoriesController(ApiDbContext context, IGoodCategoriesRepository goodCategoriesRepository, IUnitOfWork unitOfWork)
+        public GoodCategoriesController(IApiDbContext context, IGoodCategoriesRepository goodCategoriesRepository, IUnitOfWork unitOfWork)
         {
             _context = context;
             _goodCategoriesRepository = goodCategoriesRepository;
@@ -55,13 +55,11 @@ namespace ApiProject.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var category = _context.GoodCategories.Find(id);
-            _context.GoodCategories.Remove(category);
 
-            /* var goodCategory = new GoodCategory { Id = id };
-             _context.Entry(goodCategory).State = EntityState.Deleted;*/
+            GoodCategory category = _goodCategoriesRepository.Find(id);
+            _goodCategoriesRepository.Delete(category);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
         }
     }
 }

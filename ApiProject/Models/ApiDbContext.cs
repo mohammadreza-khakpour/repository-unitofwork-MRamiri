@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiProject.Models
 {
-    public class ApiDbContext : DbContext
+    public class ApiDbContext : DbContext, IApiDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -51,5 +51,10 @@ namespace ApiProject.Controllers
         {
             category.Title = Title;
         }
+
+        public void Delete(GoodCategory category)
+        {
+            _context.GoodCategories.Remove(category);
+        }
     }
 }
