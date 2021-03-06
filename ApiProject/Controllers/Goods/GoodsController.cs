@@ -13,41 +13,35 @@ namespace ApiProject.Controllers
     public class GoodsController : Controller
     {
         private readonly ApiDbContext _context;
-        public GoodsController()
+        private IGoodsRepository _goodsRepository;
+        private IUnitOfWork _unitOfWork;
+
+        public GoodsController(IGoodsRepository goodsRepository, IUnitOfWork unitOfWork)
         {
+            _goodsRepository = goodsRepository;
+            _unitOfWork = unitOfWork;
             _context = new ApiDbContext();
         }
 
         [HttpPost]
         public void Add([FromBody]AddGoodDto dto)
         {
-            if (_context.Goods.Any(_ => _.Code == dto.Code))
-            {
-                throw new GoodCodeCantBeDuplicateException();
-            }
+            _goodsRepository.CheckForDuplicatedTitle(dto.Code);
 
-            var good = new Good
-            {
-                Title = dto.Title,
-                Code = dto.Code,
-                Count = 0,
-                CategoryId = dto.CategoryId
-            };
+            _goodsRepository.Add(dto);
 
-            _context.Goods.Add(good);
+            _unitOfWork.Complete();
 
-            _context.SaveChanges();
         }
 
         [HttpPut("{id}")]
         public void Update(int id, [FromBody]UpdateGoodDto dto)
         {
-            Good theGood = _context.Goods.Find(id);
-            theGood.Title = dto.Title;
-            theGood.Code = dto.Code;
+            Good theGood = _goodsRepository.Find(id);
 
-            _context.Update(theGood);
-            _context.SaveChanges();
+            _goodsRepository.Update(theGood, dto);
+
+            _unitOfWork.Complete();
         }
 
         [HttpGet]
@@ -67,8 +61,8 @@ namespace ApiProject.Controllers
         // join example in c#
         // here i want to create unanymous objects
         // containing matched goodEntries & goods with same code
-        [HttpGet]
-        public void GetAll02()
+        [HttpGet("{id}")]
+        public void GetAll02(int id)
         {
             //var allGoodEntries = GetAll();
             //GoodsController c = new GoodsController();

@@ -31,6 +31,7 @@ namespace ApiProject
             services.AddSingleton<ApiDbContext>();
             services.AddSingleton<IGoodCategoriesRepository, GoodCategoriesRepository>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IGoodsRepository, GoodsRepository>();
             services.AddControllers();
         }
 

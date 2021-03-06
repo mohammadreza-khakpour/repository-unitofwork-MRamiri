@@ -14,13 +14,11 @@ namespace ApiProject.Controllers
     [Route("api/good-categories")]
     public class GoodCategoriesController : Controller
     {
-        private readonly IApiDbContext _context;
         private IGoodCategoriesRepository _goodCategoriesRepository;
         private IUnitOfWork _unitOfWork;
 
-        public GoodCategoriesController(IApiDbContext context, IGoodCategoriesRepository goodCategoriesRepository, IUnitOfWork unitOfWork)
+        public GoodCategoriesController( IGoodCategoriesRepository goodCategoriesRepository, IUnitOfWork unitOfWork)
         {
-            _context = context;
             _goodCategoriesRepository = goodCategoriesRepository;
             _unitOfWork = unitOfWork;
         }
