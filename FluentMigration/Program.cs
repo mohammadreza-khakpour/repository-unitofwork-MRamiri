@@ -26,7 +26,7 @@ namespace FluentMigration
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddSqlServer()
-                    .WithGlobalConnectionString("Server=.;Database=FluentMigrationTest;Trusted_Connection=True;")// should create the database first manually
+                    .WithGlobalConnectionString("Server=.;Database=mrAmiriSupermarket;Trusted_Connection=True;")// should create the database first manually
                     .ScanIn(typeof(Program).Assembly).For.Migrations())// https://docs.microsoft.com/en-us/dotnet/api/system.reflection.assembly?view=net-5.0
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
@@ -35,7 +35,7 @@ namespace FluentMigration
         private static void UpdateDatabase(IServiceProvider serviceProvider)
         {
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-            runner.MigrateUp(202103031900);
+            runner.MigrateUp();
         }
     }
 }

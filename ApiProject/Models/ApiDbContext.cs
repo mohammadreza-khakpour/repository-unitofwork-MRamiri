@@ -11,7 +11,7 @@ namespace ApiProject.Models
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=RezaSuperMarket;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=.;Database=mrAmiriSupermarket;Trusted_Connection=True;");
             base.OnConfiguring(optionsBuilder);
         }
 
